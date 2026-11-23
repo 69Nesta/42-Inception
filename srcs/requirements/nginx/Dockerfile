@@ -8,7 +8,5 @@ RUN openssl req -x509 -nodes -sha256 -days 360 \
     -out /etc/nginx/ssl/inception_certificat.crt \
     -subj "/C=FR/ST=Lyon/L=Lyon/O=42 School/OU=inception/CN=rpetit.42.fr/emailAddress=rpetit@student.42lyon.frs"
 
-
-EXPOSE 80
-EXPOSE 443
+EXPOSE 80 443
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
