@@ -1,0 +1,9 @@
+https://fixmycert.com/guides/openssl-installation/
+https://gist.github.com/joseluisq/8ab06b1526e5b16e2e9ad3480e338ed8
+https://docs.docker.com/engine/storage/volumes/
+https://dev.to/idsulik/a-beginners-guide-to-docker-health-checks-and-container-monitoring-3kh6
+https://docs.docker.com/reference/compose-file/volumes/#driver_opts
+https://grafikart.fr/tutoriels/nginx-692
+https://hub.docker.com/_/nginx
+https://blog.devgenius.io/docker-compose-best-practices-552b4d3cc927
+https://docs.docker.com/reference/dockerfile/

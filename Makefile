@@ -1,4 +1,4 @@
-run:
+up:
 	@docker compose -f ./srcs/compose.yaml up
 
 build:
@@ -7,6 +7,6 @@ build:
 down:
 	@docker compose -f ./srcs/compose.yaml down
 
-re: build run
+re: build down up
 
 .PHONY: run build down re
