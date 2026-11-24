@@ -7,3 +7,4 @@ https://grafikart.fr/tutoriels/nginx-692
 https://hub.docker.com/_/nginx
 https://blog.devgenius.io/docker-compose-best-practices-552b4d3cc927
 https://docs.docker.com/reference/dockerfile/
+https://github.com/cnumr/best-practices-packaged-software/blob/main/.env.example

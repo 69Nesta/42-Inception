@@ -15,14 +15,23 @@ services:
       timeout: 3s
       retries: 3
       start_period: 40s
+    network:
+      - fontend
+
   mariadb:
     container_name: mariadb
+    environment:
+      MARIADB_USER: ${MARIADB_USER:?MARIADB_USER is required}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:?MARIADB_PASSWORD is required}
+      MARIADB_DATABASE: ${MARIADB_DATABASE:?MARIADB_DATABASE is required}
     build:
       context: ./requirements/mariadb/
       dockerfile: ./Dockerfile
     volumes:
       - db_volume:/var/lib/mysql
     restart: always
+    network:
+      - backend
 
 volumes:
   web_volume:
@@ -30,13 +39,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${HOME}/data/web_volume
+      device: ${HOME}/goinfre/data/web_volume
   db_volume:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ${HOME}/data/db_volume
+      device: ${HOME}/goinfre/data/db_volume
 
 networks:
   fontend:
