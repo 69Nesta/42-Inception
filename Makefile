@@ -2,7 +2,7 @@ mkdir:
 	@mkdir -p ~/goinfre/data/web_volume ~/goinfre/data/db_volume
 
 up: mkdir
-	@docker compose -f ./srcs/compose.yaml up
+	@docker compose -f ./srcs/compose.yaml up --remove-orphans
 
 build:
 	@docker compose -f ./srcs/compose.yaml build

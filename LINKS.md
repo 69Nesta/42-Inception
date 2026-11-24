@@ -8,3 +8,6 @@ https://hub.docker.com/_/nginx
 https://blog.devgenius.io/docker-compose-best-practices-552b4d3cc927
 https://docs.docker.com/reference/dockerfile/
 https://github.com/cnumr/best-practices-packaged-software/blob/main/.env.example
+https://docs.docker.com/compose/how-tos/environment-variables/set-environment-variables/
+
+https://www.ionos.fr/digitalguide/hebergement/blogs/installer-wordpress-sur-nginx/

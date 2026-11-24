@@ -15,23 +15,38 @@ services:
       timeout: 3s
       retries: 3
       start_period: 40s
-    network:
-      - fontend
+    expose:
+      - 80:80
+      - 443:433
+    networks:
+      - inception_frontend
 
-  mariadb:
+  db:
     container_name: mariadb
     environment:
-      MARIADB_USER: ${MARIADB_USER:?MARIADB_USER is required}
-      MARIADB_PASSWORD: ${MARIADB_PASSWORD:?MARIADB_PASSWORD is required}
-      MARIADB_DATABASE: ${MARIADB_DATABASE:?MARIADB_DATABASE is required}
+      MARIADB_USER: ${DB_USER:?MARIADB_USER is required}
+      MARIADB_PASSWORD: ${DB_PASSWORD:?MARIADB_PASSWORD is required}
+      MARIADB_DATABASE: ${DB_NAME:?MARIADB_DATABASE is required}
     build:
       context: ./requirements/mariadb/
       dockerfile: ./Dockerfile
     volumes:
       - db_volume:/var/lib/mysql
     restart: always
-    network:
-      - backend
+    networks:
+      - inception_backend
+
+  wordpress:
+    container_name: wordpress
+    build:
+      context: ./requirements/wordpress/
+      dockerfile: ./Dockerfile
+    volumes:
+      - web_volume:/var/www/html
+    restart: always
+    networks:
+      - inception_frontend
+      - inception_backend
 
 volumes:
   web_volume:
@@ -48,5 +63,7 @@ volumes:
       device: ${HOME}/goinfre/data/db_volume
 
 networks:
-  fontend:
-  backend:
+  inception_frontend:
+    driver: bridge
+  inception_backend:
+    driver: bridge
