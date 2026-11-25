@@ -1,6 +1,12 @@
 #!/bin/sh
 set -e
 
+if [ ! -f /var/www/html/wp-cli.phar ]; then
+    echo "[Info] Installing wordpress-cli..."
+    curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+fi
+chmod +x /usr/local/bin/wp
+
 if [ ! -f /var/www/html/.initialised ]; then
     echo "[Info] --- CONFIG ---"
     echo "[Info] dbhost: $DB_HOST"
