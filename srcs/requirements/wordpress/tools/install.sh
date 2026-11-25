@@ -1,15 +1,14 @@
 #!/bin/sh
 set -e
 
-ls /var/www/html
 
-echo "--- CONFIG ---"
-echo "dbhost: $DB_HOST"
-echo "dbname: $DB_NAME"
-echo "dbuser: $DB_USER"
-echo "dbpass: $DB_PASSWORD"
 
 if [ ! -f /var/www/html/.initialised ]; then
+    echo "[Info] --- CONFIG ---"
+    echo "[Info] dbhost: $DB_HOST"
+    echo "[Info] dbname: $DB_NAME"
+    echo "[Info] dbuser: $DB_USER"
+
     mkdir -p ~/.wp-cli
     cat > ~/.wp-cli/config.yml <<EOF
 path: /var/www/html
