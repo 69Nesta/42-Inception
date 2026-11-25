@@ -2,8 +2,8 @@ all : up
 ARGS ?=
 
 VOLUMES = \
-	data/db_volume \
-	data/web_volume
+	${HOME}/data/db_volume \
+	${HOME}/data/web_volume
 
 up: $(VOLUMES)
 	@docker compose -f ./srcs/compose.yaml up $(ARGS)

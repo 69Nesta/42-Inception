@@ -1,4 +1,4 @@
-FROM alpine:3.24
+FROM alpine:3.23
 
 RUN apk update && apk upgrade && apk add --no-cache bash curl less mariadb-client \
     php85 php85-fpm php85-phar php85-mysqli php85-curl php85-mbstring php85-openssl \
