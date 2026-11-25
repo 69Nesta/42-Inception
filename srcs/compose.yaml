@@ -20,7 +20,9 @@ services:
     networks:
       - inception_frontend
     depends_on:
-      - wordpress
+      wordpress:
+        condition: service_healthy
+
   db:
     container_name: mariadb
     hostname: database
