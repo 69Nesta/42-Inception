@@ -25,16 +25,17 @@ EOF
 
     php -d memory_limit=512M /usr/local/bin/wp core download
     wp config create
-    wp core install \
-      --url="https://rpetit.42.fr" \
-      --title="$WP_TITLE" \
-      --admin_user="$WP_USER" \
-      --admin_password="$WP_PASSWORD" \
-      --admin_email="$WP_EMAIL" \
-      --skip-email
+    # wp core install \
+    #   --url="https://rpetit.42.fr" \
+    #   --title="$WP_TITLE" \
+    #   --admin_user="$WP_USER" \
+    #   --admin_password="$WP_PASSWORD" \
+    #   --admin_email="$WP_EMAIL" \
+    #   --skip-email
 
     wp core version
 fi
+wp db check
 wp user list
 
 exec php-fpm85 -F
