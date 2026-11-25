@@ -15,35 +15,50 @@ services:
       timeout: 3s
       retries: 3
       start_period: 40s
-    expose:
-      - 80:80
-      - 443:433
+    ports:
+      - "8080:80"
+      - "8443:433"
     networks:
       - inception_frontend
 
   db:
     container_name: mariadb
+    hostname: database
     environment:
-      MARIADB_USER: ${DB_USER:?MARIADB_USER is required}
-      MARIADB_PASSWORD: ${DB_PASSWORD:?MARIADB_PASSWORD is required}
-      MARIADB_DATABASE: ${DB_NAME:?MARIADB_DATABASE is required}
+      MARIADB_USER: ${DB_USER:?DB_USER is required}
+      MARIADB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
+      MARIADB_DATABASE: ${DB_NAME:?DB_NAME is required}
     build:
       context: ./requirements/mariadb/
       dockerfile: ./Dockerfile
     volumes:
       - db_volume:/var/lib/mysql
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping --silent 2>/dev/null;"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
     networks:
       - inception_backend
 
   wordpress:
     container_name: wordpress
+    environment:
+      DB_HOST: ${DB_HOST:+database}
+      DB_NAME: ${DB_NAME:?DB_NAME is required}
+      DB_USER: ${DB_USER:?DB_USER is required}
+      DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
     build:
       context: ./requirements/wordpress/
       dockerfile: ./Dockerfile
     volumes:
       - web_volume:/var/www/html
     restart: always
+    depends_on:
+      db:
+        condition: service_healthy
     networks:
       - inception_frontend
       - inception_backend
