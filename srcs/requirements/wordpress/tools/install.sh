@@ -1,8 +1,6 @@
 #!/bin/sh
 set -e
 
-
-
 if [ ! -f /var/www/html/.initialised ]; then
     echo "[Info] --- CONFIG ---"
     echo "[Info] dbhost: $DB_HOST"
