@@ -1,20 +1,24 @@
 all : up
 ARGS ?=
 
-mkdir:
-	@mkdir -p ~/goinfre/data/web_volume ~/goinfre/data/db_volume
+VOLUMES = \
+	data/db_volume \
+	data/web_volume
 
-up: mkdir
-	@docker compose -f ./srcs/compose.yaml up
+up: $(VOLUMES)
+	@docker compose -f ./srcs/compose.yaml up $(ARGS)
+
+start: $(VOLUMES)
+	@docker compose -f ./srcs/compose.yaml start $(ARGS)
 
 build:
-	@docker compose -f ./srcs/compose.yaml build
+	@docker compose -f ./srcs/compose.yaml build $(ARGS)
 
 down:
-	@docker compose -f ./srcs/compose.yaml down -v
+	@docker compose -f ./srcs/compose.yaml down -v $(ARGS)
 
 boom: down
-	@docker compose -f ./srcs/compose.yaml down --rmi all
+	@docker compose -f ./srcs/compose.yaml down --rmi all $(ARGS)
 
 nuke: boom
 	@docker system prune -af
@@ -35,5 +39,8 @@ ssh:
 	ssh root@localhost -p 2222
 
 re: down build up
+
+$(VOLUMES):
+	mkdir -p $(VOLUMES)
 
 .PHONY: run build down re
