@@ -1,7 +1,7 @@
 FROM alpine:3.23
 
 RUN apk update && apk upgrade && apk add --no-cache \
-    curl
+    curl \
     mariadb-client \
     php85 \
     php85-fpm \
