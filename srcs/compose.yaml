@@ -70,6 +70,7 @@ services:
       # Redis plugin secrets
       WORDPRESS_REDIS_HOST: ${WORDPRESS_REDIS_HOST:?WORDPRESS_REDIS_HOST is required}
       WORDPRESS_REDIS_PORT: ${WORDPRESS_REDIS_PORT:?WORDPRESS_REDIS_PORT is required}
+      WORDPRESS_REDIS_PASSWORD: ${WORDPRESS_REDIS_PASSWORD:?WORDPRESS_REDIS_PASSWORD is required}
       WORDPRESS_REDIS_DATABASE: ${WORDPRESS_REDIS_DATABASE:?WORDPRESS_REDIS_DATABASE is required}
       WORDPRESS_REDIS_PREFIX: ${WORDPRESS_REDIS_PREFIX:?WORDPRESS_REDIS_PREFIX is required}
       WORDPRESS_REDIS_TIMEOUT: ${WORDPRESS_REDIS_TIMEOUT:?WORDPRESS_REDIS_TIMEOUT is required}
@@ -97,6 +98,8 @@ services:
 
   redis:
     container_name: redis
+    environment:
+      REDIS_PASSWORD: ${WORDPRESS_REDIS_PASSWORD:?WORDPRESS_REDIS_PASSWORD is required}
     build:
       context: ./requirements/bonus/redis/
       dockerfile: ./Dockerfile
