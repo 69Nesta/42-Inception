@@ -37,7 +37,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     wp config create
 fi
 
-if [ ! wp core is-installed 2>/dev/null ]; then
+if ! wp core is-installed 2>/dev/null; then
     echo "[Info] Installing wordpress..."
 
     wp core install \
