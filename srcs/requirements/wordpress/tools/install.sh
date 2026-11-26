@@ -31,7 +31,7 @@ if [ ! -f /var/www/html/.downloaded ]; then
     touch /var/www/html/.downloaded
 fi
 
-if [ ! /var/www/html/wp-config.php ]; then
+if [ ! -f /var/www/html/wp-config.php ]; then
     echo "[Info] Creating wp-config.php..."
 
     wp config create
