@@ -7,11 +7,8 @@ if [ ! -f /var/www/html/wp-cli.phar ]; then
 fi
 chmod +x /usr/local/bin/wp
 
-if [ ! -f /var/www/html/.initialised ]; then
-    echo "[Info] --- CONFIG ---"
-    echo "[Info] dbhost: $DB_HOST"
-    echo "[Info] dbname: $DB_NAME"
-    echo "[Info] dbuser: $DB_USER"
+if [ ! -f ~/.wp-cli/config.yml ]; then
+    echo "[Info] Initialzing config of wordpress-cli"
 
     mkdir -p ~/.wp-cli
     cat > ~/.wp-cli/config.yml <<EOF
@@ -25,20 +22,38 @@ core config:
     dbpass: $DB_PASSWORD
     dbprefix: wp_
 EOF
+fi
+
+if [ ! -f /var/www/html/.downloaded ]; then
+    echo "[Info] Downloading wordpress..."
 
     php -d memory_limit=512M /usr/local/bin/wp core download
+    touch /var/www/html/.downloaded
+fi
+
+if [ ! /var/www/html/wp-config.php ]; then
+    echo "[Info] Creating wp-config.php..."
+
     wp config create
+fi
+
+if [ ! wp core is-installed 2>/dev/null ]; then
+    echo "[Info] Installing wordpress..."
+
     wp core install \
       --url="https://rpetit.42.fr" \
-      --title="$WP_TITLE" \
-      --admin_user="$WP_USER" \
-      --admin_password="$WP_PASSWORD" \
-      --admin_email="$WP_EMAIL" \
+      --title="$WORDPRESS_SITE_TITLE" \
+      --admin_user="$WORDPRESS_ADMIN_USER" \
+      --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
+      --admin_email="$WORDPRESS_ADMIN_EMAIL" \
       --skip-email
 
-    wp core version
-    touch /var/www/html/.initialised
+    echo "[Info] Installing wordpress..."
+    wp user create
+
 fi
+
+wp core version
 wp db check
 wp user list
 

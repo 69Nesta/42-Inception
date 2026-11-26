@@ -48,15 +48,19 @@ services:
   wordpress:
     container_name: wordpress
     environment:
+      # Wordpress database
       DB_HOST: ${DB_HOST:+database}
       DB_NAME: ${DB_NAME:?DB_NAME is required}
       DB_USER: ${DB_USER:?DB_USER is required}
       DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
-      # Wordpress user
-      WP_TITLE: ${WP_TITLE:?WP_TITLE is required}
-      WP_USER: ${WP_USER:?WP_USER is required}
-      WP_PASSWORD: ${WP_PASSWORD:?WP_PASSWORD is required}
-      WP_EMAIL: ${WP_EMAIL:?WP_EMAIL is required}
+      # Wordpress admin user
+      WORDPRESS_SITE_TITLE: ${WORDPRESS_SITE_TITLE:?WORDPRESS_SITE_TITLE is required}
+      WORDPRESS_ADMIN_USER: ${WORDPRESS_ADMIN_USER:?WORDPRESS_ADMIN_USER is required}
+      WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL:?WORDPRESS_ADMIN_EMAIL is required}
+      # WordPress default user
+      WORDPRESS_USER: ${WORDPRESS_USER:?WORDPRESS_USER is required}
+      WORDPRESS_EMAIL: ${WORDPRESS_EMAIL:?WORDPRESS_EMAIL is required}
+      WORDPRESS_PASSWORD: ${WORDPRESS_PASSWORD:?WORDPRESS_PASSWORD is required}
     build:
       context: ./requirements/wordpress/
       dockerfile: ./Dockerfile
