@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-if [ ! -f /var/www/html/wp-cli.phar ]; then
+if [ ! -f /usr/local/bin/wp ]; then
     echo "[Info] Installing wordpress-cli..."
     curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 fi
