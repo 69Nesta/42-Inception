@@ -121,6 +121,8 @@ services:
     volumes:
       - web_volume:/home/${FTP_USER}
     restart: always
+    ports:
+      - "21:21"
     networks:
       - inception_backend
 
