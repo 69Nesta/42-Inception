@@ -1,17 +1,17 @@
 #!/bin/sh
 set -e
 
-CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
 NC='\033[0m'
 
 if [ ! -f /usr/local/bin/wp ]; then
-    echo -e "${CYAN}[Info]${NC} Installing wordpress-cli..."
+    echo -e "${MAGENTA}[Info]${NC} Installing wordpress-cli..."
     curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 fi
 chmod +x /usr/local/bin/wp
 
 if [ ! -f ~/.wp-cli/config.yml ]; then
-    echo -e "${CYAN}[Info]${NC} Initialzing config of wordpress-cli"
+    echo -e "${MAGENTA}[Info]${NC} Initialzing config of wordpress-cli"
 
     mkdir -p ~/.wp-cli
     cat > ~/.wp-cli/config.yml <<EOF
@@ -28,20 +28,20 @@ EOF
 fi
 
 if [ ! -f /var/www/html/.downloaded ]; then
-    echo -e "${CYAN}[Info]${NC} Downloading wordpress..."
+    echo -e "${MAGENTA}[Info]${NC} Downloading wordpress..."
 
     php -d memory_limit=512M /usr/local/bin/wp core download
     touch /var/www/html/.downloaded
 fi
 
 if [ ! -f /var/www/html/wp-config.php ]; then
-    echo -e "${CYAN}[Info]${NC} Creating wp-config.php..."
+    echo -e "${MAGENTA}[Info]${NC} Creating wp-config.php..."
 
     wp config create
 fi
 
 if ! wp core is-installed 2>/dev/null; then
-    echo -e "${CYAN}[Info]${NC} Installing wordpress..."
+    echo -e "${MAGENTA}[Info]${NC} Installing wordpress..."
 
     wp core install \
         --url="https://rpetit.42.fr" \
@@ -51,7 +51,7 @@ if ! wp core is-installed 2>/dev/null; then
         --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
         --skip-email
 
-    echo -e "${CYAN}[Info]${NC} Creating wordpress users..."
+    echo -e "${MAGENTA}[Info]${NC} Creating wordpress users..."
     wp user create "$WORDPRESS_USER" "$WORDPRESS_EMAIL" \
         --user_pass="$WORDPRESS_PASSWORD"
 fi
