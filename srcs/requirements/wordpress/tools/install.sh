@@ -76,7 +76,6 @@ if ! wp plugin is-installed redis-cache 2>/dev/null; then
     wp config set WP_REDIS_PREFIX       "$WORDPRESS_REDIS_PREFIX"       --allow-root
     wp config set WP_REDIS_TIMEOUT      "$WORDPRESS_REDIS_TIMEOUT"      --raw --allow-root
     wp config set WP_REDIS_READ_TIMEOUT "$WORDPRESS_REDIS_READ_TIMEOUT" --raw --allow-root
-    wp config set WP_REDIS_PASSWORD     "$WORDPRESS_REDIS_PASSWORD"     --allow-root
 
     wp plugin install redis-cache --activate --allow-root
     wp redis enable --allow-root
