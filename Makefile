@@ -2,8 +2,8 @@ all : up
 ARGS ?=
 
 VOLUMES = \
-	${HOME}/data/db_volume \
-	${HOME}/data/web_volume
+	$${HOME}/data/db_volume \
+	$${HOME}/data/web_volume
 
 up: $(VOLUMES)
 	@docker compose -f ./srcs/compose.yaml up $(ARGS)
@@ -41,6 +41,6 @@ ssh:
 re: down build up
 
 $(VOLUMES):
-	mkdir -p $(VOLUMES)
+	@mkdir -p $(VOLUMES)
 
 .PHONY: run build down re
