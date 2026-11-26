@@ -57,6 +57,8 @@ if ! wp core is-installed 2>/dev/null; then
 fi
 
 if [ -z "$(wp post list --post_type=post --title="$WORDPRESS_DEFAULT_POST_TITLE" --field=ID --allow-root)" ]; then
+    echo -e "${MAGENTA}[Info]${NC} Creating wordpress post..."
+
     wp post create --post_type=post \
         --post_title="$WORDPRESS_DEFAULT_POST_TITLE" \
         --post_content="$WORDPRESS_DEFAULT_POST_CONTENT" \
