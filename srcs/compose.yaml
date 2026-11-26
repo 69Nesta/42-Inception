@@ -67,6 +67,13 @@ services:
       WORDPRESS_DEFAULT_POST_CONTENT: ${WORDPRESS_DEFAULT_POST_CONTENT:?WORDPRESS_DEFAULT_POST_CONTENT is required}
       WORDPRESS_DEFAULT_POST_STATUS: ${WORDPRESS_DEFAULT_POST_STATUS:?WORDPRESS_DEFAULT_POST_STATUS is required}
       WORDPRESS_DEFAULT_POST_AUTHOR: ${WORDPRESS_DEFAULT_POST_AUTHOR:?WORDPRESS_DEFAULT_POST_AUTHOR is required}
+      # Redis plugin secrets
+      WORDPRESS_REDIS_HOST: ${WORDPRESS_REDIS_HOST:?WORDPRESS_REDIS_HOST is required}
+      WORDPRESS_REDIS_PORT: ${WORDPRESS_REDIS_PORT:?WORDPRESS_REDIS_PORT is required}
+      WORDPRESS_REDIS_DATABASE: ${WORDPRESS_REDIS_DATABASE:?WORDPRESS_REDIS_DATABASE is required}
+      WORDPRESS_REDIS_PREFIX: ${WORDPRESS_REDIS_PREFIX:?WORDPRESS_REDIS_PREFIX is required}
+      WORDPRESS_REDIS_TIMEOUT: ${WORDPRESS_REDIS_TIMEOUT:?WORDPRESS_REDIS_TIMEOUT is required}
+      WORDPRESS_REDIS_READ_TIMEOUT: ${WORDPRESS_REDIS_READ_TIMEOUT:?WORDPRESS_REDIS_READ_TIMEOUT is required}
     build:
       context: ./requirements/wordpress/
       dockerfile: ./Dockerfile
@@ -75,15 +82,32 @@ services:
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "nc -z 127.0.0.1 9000 || exit 1" ]
-      interval: 30s
+      interval: 1s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 30s
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - inception_frontend
+      - inception_backend
+
+  redis:
+    container_name: redis
+    build:
+      context: ./requirements/bonus/redis/
+      dockerfile: ./Dockerfile
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping" ]
+      interval: 3s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
       - inception_backend
 
 volumes:

@@ -67,6 +67,20 @@ if [ -z "$(wp post list --post_type=post --title="$WORDPRESS_DEFAULT_POST_TITLE"
         --allow-root
 fi
 
+if ! wp plugin is-installed redis-cache 2>/dev/null; then
+    echo -e "${MAGENTA}[Info]${NC} Installing redis cache plugin..."
+
+    wp config set WP_REDIS_HOST         "$WORDPRESS_REDIS_HOST"         --allow-root
+    wp config set WP_REDIS_PORT         "$WORDPRESS_REDIS_PORT"         --raw --allow-root
+    wp config set WP_REDIS_DATABASE     "$WORDPRESS_REDIS_DATABASE"     --raw --allow-root
+    wp config set WP_REDIS_PREFIX       "$WORDPRESS_REDIS_PREFIX"       --allow-root
+    wp config set WP_REDIS_TIMEOUT      "$WORDPRESS_REDIS_TIMEOUT"      --raw --allow-root
+    wp config set WP_REDIS_READ_TIMEOUT "$WORDPRESS_REDIS_READ_TIMEOUT" --raw --allow-root
+
+    wp plugin install redis-cache --activate --allow-root
+    wp redis enable --allow-root
+fi
+
 wp core version
 wp db check
 wp user list
