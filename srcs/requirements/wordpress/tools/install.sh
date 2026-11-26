@@ -56,6 +56,15 @@ if ! wp core is-installed 2>/dev/null; then
         --user_pass="$WORDPRESS_PASSWORD"
 fi
 
+if [ -z "$(wp post list --post_type=post --title="$WORDPRESS_DEFAULT_POST_TITLE" --field=ID --allow-root)" ]; then
+    wp post create --post_type=post \
+        --post_title="$WORDPRESS_DEFAULT_POST_TITLE" \
+        --post_content="$WORDPRESS_DEFAULT_POST_CONTENT" \
+        --post_status="${WORDPRESS_DEFAULT_POST_STATUS:-publish}" \
+        --post_author="${WORDPRESS_DEFAULT_POST_AUTHOR:-1}" \
+        --allow-root
+fi
+
 wp core version
 wp db check
 wp user list

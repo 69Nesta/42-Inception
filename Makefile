@@ -1,9 +1,11 @@
 all : up
 ARGS ?=
 
+HOME = /home/rpetit
+
 VOLUMES = \
-	$${HOME}/data/db_volume \
-	$${HOME}/data/web_volume
+	$(HOME)/data/db_volume \
+	$(HOME)/data/web_volume
 
 up: $(VOLUMES)
 	@docker compose -f ./srcs/compose.yaml up $(ARGS)
