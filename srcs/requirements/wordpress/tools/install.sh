@@ -44,8 +44,8 @@ if ! wp core is-installed 2>/dev/null; then
         --url="https://rpetit.42.fr" \
         --title="$WORDPRESS_SITE_TITLE" \
         --admin_user="$WORDPRESS_ADMIN_USER" \
-        --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
         --admin_email="$WORDPRESS_ADMIN_EMAIL" \
+        --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
         --skip-email
 
     echo "[Info] Creating wordpress users..."
