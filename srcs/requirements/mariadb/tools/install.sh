@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+CYAN='\033[0;31m'
+NC='\033[0m'
+
 # Create folders
 mkdir -p /run/mysqld
 chown mysql:mysql /run/mysqld
@@ -18,21 +21,21 @@ EOF
 
 # Install MariaDB if needed
 if [ ! -d /var/lib/mysql/mysql ]; then
-    echo '[INFO] MariaDB initialization (1/2)...'
+    echo -e '${CYAN}[INFO]${NC} MariaDB initialization (1/2)...'
     mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 fi
 
 if [ ! -f "/var/lib/mysql/.initialized" ]; then
-    echo '[INFO] MariaDB initialization (2/2)...'
+    echo -e '${CYAN}[INFO]${NC} MariaDB initialization (2/2)...'
     mariadbd --user=mysql --datadir=/var/lib/mysql &
     pid=$!
 
     until mariadb-admin ping --silent 2>/dev/null; do
-        echo '[INFO] MariaDB waiting...'
+        echo -e '${CYAN}[INFO]${NC} MariaDB waiting...'
         sleep 1
     done
-    echo "[INFO] MariaDB database : '$MARIADB_DATABASE'"
-    echo "[INFO] MariaDB user : '$MARIADB_USER'"
+    echo -e "${CYAN}[INFO]${NC} MariaDB database : '$MARIADB_DATABASE'"
+    echo -e "${CYAN}[INFO]${NC} MariaDB user : '$MARIADB_USER'"
 
     mariadb -u root <<EOF
 CREATE DATABASE IF NOT EXISTS $MARIADB_DATABASE CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -47,5 +50,5 @@ EOF
 fi
 
 # Start MariaDB
-echo '[INFO] MariaDB starting...'
+echo -e '${CYAN}[INFO]${NC} MariaDB starting...'
 exec mariadbd --user=mysql --datadir='/var/lib/mysql' --bind-address=0.0.0.0 --port=3306
