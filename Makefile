@@ -40,6 +40,9 @@ ssh:
 
 re: down build up
 
+erase: nuke
+	rm -rf $(VOLUMES)
+
 $(VOLUMES):
 	@mkdir -p $(VOLUMES)
 
