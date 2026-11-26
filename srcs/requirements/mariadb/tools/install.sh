@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-MAGENTA='\033[0;36m'
+MAGENTA='\033[0;35m'
 NC='\033[0m'
 
 # Create folders
