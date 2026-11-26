@@ -110,6 +110,20 @@ services:
     networks:
       - inception_backend
 
+  ftp:
+    container_name: ftp
+    environment:
+      FTP_USER: ${FTP_USER:?FTP_USER is required}
+      FTP_PASSWORD: ${FTP_PASSWORD:?FTP_PASSWORD is required}
+    build:
+      context: ./requirements/bonus/ftp/
+      dockerfile: ./Dockerfile
+    volumes:
+      - web_volume:/home/${FTP_USER}
+    restart: always
+    networks:
+      - inception_backend
+
 volumes:
   web_volume:
     driver: local
