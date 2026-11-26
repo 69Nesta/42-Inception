@@ -5,13 +5,13 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 if [ ! -f /usr/local/bin/wp ]; then
-    echo "[Info] Installing wordpress-cli..."
+    echo -e "${CYAN}[Info]${NC} Installing wordpress-cli..."
     curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 fi
 chmod +x /usr/local/bin/wp
 
 if [ ! -f ~/.wp-cli/config.yml ]; then
-    echo "[Info] Initialzing config of wordpress-cli"
+    echo -e "${CYAN}[Info]${NC} Initialzing config of wordpress-cli"
 
     mkdir -p ~/.wp-cli
     cat > ~/.wp-cli/config.yml <<EOF

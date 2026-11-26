@@ -21,17 +21,17 @@ EOF
 
 # Install MariaDB if needed
 if [ ! -d /var/lib/mysql/mysql ]; then
-    echo -e '${CYAN}[INFO]${NC} MariaDB initialization (1/2)...'
+    echo -e "${CYAN}[INFO]${NC} MariaDB initialization (1/2)..."
     mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 fi
 
 if [ ! -f "/var/lib/mysql/.initialized" ]; then
-    echo -e '${CYAN}[INFO]${NC} MariaDB initialization (2/2)...'
+    echo -e "${CYAN}[INFO]${NC} MariaDB initialization (2/2)..."
     mariadbd --user=mysql --datadir=/var/lib/mysql &
     pid=$!
 
     until mariadb-admin ping --silent 2>/dev/null; do
-        echo -e '${CYAN}[INFO]${NC} MariaDB waiting...'
+        echo -e "${CYAN}[INFO]${NC} MariaDB waiting..."
         sleep 1
     done
     echo -e "${CYAN}[INFO]${NC} MariaDB database : '$MARIADB_DATABASE'"
@@ -50,5 +50,5 @@ EOF
 fi
 
 # Start MariaDB
-echo -e '${CYAN}[INFO]${NC} MariaDB starting...'
+echo -e "${CYAN}[INFO]${NC} MariaDB starting..."
 exec mariadbd --user=mysql --datadir='/var/lib/mysql' --bind-address=0.0.0.0 --port=3306
