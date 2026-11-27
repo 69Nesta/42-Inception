@@ -115,11 +115,12 @@ services:
     environment:
       FTP_USER: ${FTP_USER:?FTP_USER is required}
       FTP_PASSWORD: ${FTP_PASSWORD:?FTP_PASSWORD is required}
+      FTP_UID: 0
     build:
       context: ./requirements/bonus/ftp/
       dockerfile: ./Dockerfile
     volumes:
-      - web_volume:/home/${FTP_USER}
+      - web_volume:/srv/ftp
     restart: always
     ports:
       - "21:21"
