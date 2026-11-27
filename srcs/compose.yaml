@@ -115,7 +115,7 @@ services:
     environment:
       FTP_USER: ${FTP_USER:?FTP_USER is required}
       FTP_PASSWORD: ${FTP_PASSWORD:?FTP_PASSWORD is required}
-      FTP_UID: 0
+      FTP_UID: 33
     build:
       context: ./requirements/bonus/ftp/
       dockerfile: ./Dockerfile
