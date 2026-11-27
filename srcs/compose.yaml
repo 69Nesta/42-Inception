@@ -124,6 +124,7 @@ services:
     restart: always
     ports:
       - "21:21"
+      - "50000-50100:50000-50100"
     networks:
       - inception_backend
 
