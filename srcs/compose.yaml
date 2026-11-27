@@ -6,7 +6,6 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - web_volume:/var/www/html:ro
-      - ./requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
     restart: always
     healthcheck:
       test: nginx -t
